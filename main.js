@@ -1,10 +1,10 @@
 let client = AgoraRTC.createClient({mode:'rtc', 'codec':"vp8"})
 
 let config = {
-  appid: 'a81b6143b38e4b7494e145b6f274897f',
-  token: '006a81b6143b38e4b7494e145b6f274897fIACGvQq3AKx/m/UD2suDI00c34oYWaFQ7WRqIgtna646w29N4VkAAAAAEACu7KwLGEPPYQEAAQAYQ89h',
+  appid: 'null',
+  token: 'null',
   uid: null,
-  channel: 'wrestler3',
+  channel: 'nothing',
 }
 
 let localTracks = {

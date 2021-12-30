@@ -1,75 +1,85 @@
 body {
   margin: 0;
   padding: 0;
-  background: linear-gradient(to right, #cc95c0, #dbd4b4, #7aa1d2);
+  background-color: #006653;
   color: aliceblue;
-  font-family: 'Waiting for the Sunrise', cursive;
+  font-family: 'Poppins', sans-serif;
 }
 
-main{
+main {
   width: 1400px;
   margin: 0 auto;
   height: 75vh;
 }
 
-.icon-wrapper {
-  text-align: center;
+#site-title {
+  font-family: 'Permanent Marker', cursive;
+}
+
+
+#join-wrapper{
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+#username{
+  padding: 20px;
+  font-size: 18px;
+  border-radius: 10px;
+  border:none;
+  margin: 10px;
+}
+
+.volume-icon{
+  height:20px;
+  width:20px;
+}
+
+#join-btn {
+
+  background-color: #1f1f1f8e;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  padding: 20px 30px;
   cursor: pointer;
 }
 
-.control-icon {
-  display: block;
-  padding: 15px;
-  height: 30px;
-  width: 30px;
-  background-color: #4e4376;
-  border-radius: 13px;
-}
 
 #user-streams {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
-  gap:1em;
+  gap: 1em;
   height: 100%;
 }
+
+
+.video-player {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
 .video-containers {
-  
   position: relative;
   padding: 0;
   margin: 0;
-  background: linear-gradient(to left, #2b5876, #4e4376);
-  border-radius: 15px;
-  border-width: 3px;
-  /* border-style: solid;
-  border-image: 
-    linear-gradient(
-      to bottom, 
-      #FF8008, 
-      rgba(0, 0, 0, 0)
-    ) 1 100%; */
-  /* height: 100%;
-  width: 100%; */
-}
-.video-player {
-  height: 100%;
-  width: 100%;
-  border:black solid 20px;
-  border-radius: 60px 45px 30px 15px/15px 30px 45px 60px;
-  overflow: hidden;
-   border: 20px solid pink;/*
-  border-image-source: url(https://banner2.cleanpng.com/20180713/rkf/kisspng-strandagaldur-icelandic-magical-staves-symbol-sigi-icelandic-5b49371f476a25.5263676015315248952925.jpg);
-  border-image-slice: 20 22; */
-  /* border-image-repeat: round; */
-  
-  -webkit-box-shadow: 4px 13px 59px 8px rgba(0,0,0,0.75);
--moz-box-shadow: 4px 13px 59px 8px rgba(0,0,0,0.75);
-box-shadow: 4px 13px 59px 8px rgba(0,0,0,0.75);
-  margin:40px;
+  background-color: #1f1f1f8e;
+  border-radius: 10px;
+
 }
 
 .user-uid {
   display: flex;
-  background-color: #FF8008;
+  align-items: center;
+  column-gap: 1em;
+  background-color: #1f1f1f8e;
   padding: 5px 10px;
   border-radius: 5px;
   position: absolute;
@@ -78,55 +88,39 @@ box-shadow: 4px 13px 59px 8px rgba(0,0,0,0.75);
   z-index: 9999;
   margin: 0;
   font-size: 18px;
-  
-}
-#join-btn {
-  position: fixed;
-  left:50%;
-  top:50%;
-  transform: translate(-50%, -50%);
-  background: linear-gradient(to right, #3a6186, #89253e);
-  border: none;
-  font-size: 22px;
-  padding: 20px 30px;
-  cursor: pointer;
 }
 
-/* button {
-  color: white;
 
-    border: none;
-    border-radius: 5px;
-    display: inline-block;
-    margin: 0 auto;
-    margin-top: 1em;
-    margin-left: 4rem;
-    transition: all .2s ease-in-out;
-    min-width: 100px; 
-} */
-
-button:hover {
-  transform: scale(1.05);
-}
-/*  */
-#footer{
+#footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
   display: none;
   justify-content: center;
   column-gap: 1em;
-  position: fixed;
-  bottom: 0;
-  left: 0;
   width: 100%;
-  /* background: linear-gradient(to right, #304352, #d7d2cc); */
+  height: 100px;
 }
+
+.icon-wrapper {
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.control-icon {
+  display: block;
+  padding: 15px;
+  background-color: #1f1f1f8e;
+  height: 30px;
+  width: 30px;
+  border-radius: 10px;
+}
+
 
 @media screen and (max-width:1400px) {
   main {
-    width: 95%;
-  }
-  #user-streams {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-
+      width: 90%;
+      margin: 0 auto;
   }
 }
