@@ -2,7 +2,7 @@ let client = AgoraRTC.createClient({mode:'rtc', 'codec':"vp8"})
 
 let config = {
   appid: 'a81b6143b38e4b7494e145b6f274897f',
-  token: '006a81b6143b38e4b7494e145b6f274897fIABx49w0Px7NAeXa/w3z3q2sjm4AO8iGpw+vHVlew4JjRW9N4VkAAAAAEACu7KwLHdnNYQEAAQAd2c1h',
+  token: '006a81b6143b38e4b7494e145b6f274897fIACGvQq3AKx/m/UD2suDI00c34oYWaFQ7WRqIgtna646w29N4VkAAAAAEACu7KwLGEPPYQEAAQAYQ89h',
   uid: null,
   channel: 'wrestler3',
 }
@@ -12,10 +12,57 @@ let localTracks = {
   videoTrack: null,
 }
 
+let localTrackState = {
+  audioTrackMuted: false,
+  videoTrackMuted: false,
+}
+
 let remoteTracks = {}
 document.getElementById('join-btn').addEventListener('click', async ()=> {
   console.log('Gebruiker in gesprek')
   await joinStreams()
+  document.getElementById('join-btn').style.display = 'none'
+  document.getElementById('footer').style.display = 'flex'
+})
+
+document.getElementById('mic-btn').addEventListener('click', async () => {
+  if(!localTrackState.audioTrackMuted) {
+    await localTracks.audioTrack.setMuted(true);
+    localTrackState.audioTrackMuted = true
+    document.getElementById('mic-btn').style.backgroundColor = 'rgb(255, 80, 80, 0.7)'
+  } else {
+    await localTracks.audioTrack.setMuted(false)
+    localTrackState.audioTrackMuted = false
+    document.getElementById('mic-btn').style.backgroundColor = '#1f1f1f8e'
+  }
+})
+
+document.getElementById('camera-btn').addEventListener('click', async () => {
+  if(!localTrackState.videoTrackMuted) {
+    await localTracks.videoTrack.setMuted(true);
+    localTrackState.videoTrackMuted = true
+    document.getElementById('camera-btn').style.backgroundColor = 'rgb(255, 80, 80, 0.7)'
+  } else {
+    await localTracks.videoTrack.setMuted(false)
+    localTrackState.videoTrackMuted = false
+    document.getElementById('camera-btn').style.backgroundColor = '#1f1f1f8e'
+  }
+})
+
+document.getElementById('leave-btn').addEventListener('click', async () => {
+  for(trackName in localTracks) {
+    let track = localTracks[trackName]
+    if(track){
+      track.stop()
+
+      track.close()
+      localTracks[trackName] = null
+    }
+  }
+  await client.leave()
+  document.getElementById('footer').style.display = 'none'
+  document.getElementById('user-streams').innerHTML = ''
+  document.getElementById('join-btn').style.display = 'block'
 })
 
 let joinStreams = async () => {
@@ -31,7 +78,7 @@ let joinStreams = async () => {
   ])
 
   let videoPlayer = `<div class="video-containers" id="video-wrapper-${config.uid}">
-  <p class="user-uid">${config.uid}</p>
+  <p class="user-uid"><img class="volume-icon" />${config.uid}</p>
   <div class="video-player player" id="stream-${config.uid}"></div>
   </div>`
   document.getElementById('user-streams').insertAdjacentHTML('beforeend', videoPlayer)
@@ -42,19 +89,25 @@ let joinStreams = async () => {
   
 }
 
-let handleUserLeft = async () => {
-  console.log('User has left')
-}
+
 
 let handleUserJoined = async (user, mediaType) => {
   console.log('Gebruiker was op deze kanaal')
   remoteTracks[user.uid] = user
 
-  await client.subscribe(user, mediaType)
 
-  if (mediaType === 'video') {
+  if (mediaType === 'video'){
+  let videoPlayer = document.getElementById(`video-wrapper-${user.uid}`)
+  console.log('videoPlayer:', videoPlayer)
+  if(videoPlayer != null){
+  // await client.subscribe(user, mediaType)
+  // if (mediaType === 'video') {
+    videoPlayer.remove()
+  }
 
-    let videoPlayer = `<div class="video-containers" id="video-wrapper-${user.uid}">
+  
+
+    videoPlayer = `<div class="video-containers" id="video-wrapper-${user.uid}">
                       <p class="user-uid">${user.uid}</p>
                       <div class="video-player player" id="stream-${user.uid}"></div>
                       </div>`
@@ -64,6 +117,12 @@ let handleUserJoined = async (user, mediaType) => {
 
   if(mediaType === 'audio') {
     user.audioTrack.play()
+  }
+
+  let handleUserLeft = async (user) => {
+    console.log('Handle user left!')
+    delete remoteTracks[user.uid]
+    document.getElementById(`video-wrapper-${user.uid}`)
   }
 
 }

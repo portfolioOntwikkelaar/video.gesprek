@@ -14,14 +14,29 @@
 </head>
 <body>
   <main>
-    <button id="join-btn">Join</button>
+    <h1 id="site-title">Video Gesprek</h1>
+    <button id="join-btn">Join this </button>
 
     <div id="user-streams">
     
     </div>
-    <button id="camera-btn">Camera</button>
-    <button id="mic-btn">Mute</button>
-    <button id="leave-btn">Leave</button>
+    <div id="footer">
+      <div class="icon-wrapper">
+        <img class="control-icon" src="./assets/video.svg"/>
+        <p>Cam</p>
+
+      </div>
+      <div class="icon-wrapper">
+        <img class="control-icon" src="./assets/microphone.svg"/>
+        <p>Mic</p>
+       
+      </div>
+      <div class="icon-wrapper">
+        <img class="control-icon" src="./assets/leave.svg"/>
+        <p>Leave</p>
+       
+      </div>
+    </div>
   </main>
   <script src="https://download.agora.io/sdk/release/AgoraRTC_N.js"></script>
   <script src="main.js"></script>
