@@ -1,8 +1,56 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to right, #cc95c0, #dbd4b4, #7aa1d2);
+  color: aliceblue;
+  font-family: 'Waiting for the Sunrise', cursive;
+}
+
+main{
+  width: 1400px;
+  margin: 0 auto;
+  height: 75vh;
+}
+.user-streams {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(600px, 11fr));
+  gap:1em;
+  height: 100%;
+}
 .video-player {
   height: 400px;
-  width: 600px;
+  width: 100%;
+  border:black solid 20px;
+  border-radius: 60px 45px 30px 15px/15px 30px 45px 60px;
+  overflow: hidden;
+  /* border: 20px solid pink;
+  border-image-source: url(https://banner2.cleanpng.com/20180713/rkf/kisspng-strandagaldur-icelandic-magical-staves-symbol-sigi-icelandic-5b49371f476a25.5263676015315248952925.jpg);
+  border-image-slice: 20 22; */
+  /* border-image-repeat: round; */
   
+  -webkit-box-shadow: 4px 13px 59px 8px rgba(0,0,0,0.75);
+-moz-box-shadow: 4px 13px 59px 8px rgba(0,0,0,0.75);
+box-shadow: 4px 13px 59px 8px rgba(0,0,0,0.75);
+  margin:40px;
 }
-/* border-radius: 10px;
-  border-color: coral;
-  border-width: 5px; */
+button {
+  color: white;
+    /* background-color: #C62828; */
+    background: linear-gradient(to right, #3a6186, #89253e);
+    border: none;
+    padding: 1em;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 0 auto;
+    margin-top: 1em;
+    margin-left: 4rem;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+    min-width: 150px; 
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+/*  */

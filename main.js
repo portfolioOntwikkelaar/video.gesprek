@@ -8,8 +8,8 @@ let config = {
 }
 
 let localTracks = {
-  audioTracks: null,
-  videoTracks: null,
+  audioTrack: null,
+  videoTrack: null,
 }
 
 let remoteTracks = {}
@@ -20,8 +20,11 @@ document.getElementById('join-btn').addEventListener('click', async ()=> {
 
 let joinStreams = async () => {
 
-  [config.uid, localTracks.audioTracks, localTracks] = await Promise.all([
-    client.join(config.appid, config.channel, config.token),
+  client.on("user-published", handleUserJoined);
+  client.on("user-left", handleUserLeft);
+
+  [config.uid, localTracks.audioTrack, localTracks.videoTrack] = await Promise.all([
+    client.join(config.appid, config.channel, config.token || null, config.uid || null),
     AgoraRTC.createMicrophoneAudioTrack(),
     AgoraRTC.createCameraVideoTrack(),
 
@@ -32,7 +35,35 @@ let joinStreams = async () => {
   <div class="video-player player" id="stream-${config.uid}"></div>
   </div>`
   document.getElementById('user-streams').insertAdjacentHTML('beforeend', videoPlayer)
-  localTracks.videoTracks.play(`stream-${config.uid}`)
+  localTracks.videoTrack.play(`stream-${config.uid}`)
 
-  await client.publish([localTracks.audioTracks, localTracks.videoTracks])
+  await client.publish([localTracks.audioTrack, localTracks.videoTrack])
+  
+  
+}
+
+let handleUserLeft = async () => {
+  console.log('User has left')
+}
+
+let handleUserJoined = async (user, mediaType) => {
+  console.log('Gebruiker was op deze kanaal')
+  remoteTracks[user.uid] = user
+
+  await client.subscribe(user, mediaType)
+
+  if (mediaType === 'video') {
+
+    let videoPlayer = `<div class="video-containers" id="video-wrapper-${user.uid}">
+                      <p class="user-uid">${user.uid}</p>
+                      <div class="video-player player" id="stream-${user.uid}"></div>
+                      </div>`
+    document.getElementById('user-streams').insertAdjacentHTML('beforeend', videoPlayer)
+    user.videoTrack.play(`stream-${user.uid}`)
+  }
+
+  if(mediaType === 'audio') {
+    user.audioTrack.play()
+  }
+
 }
